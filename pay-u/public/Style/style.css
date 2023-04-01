@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+body {
+    background-color: black;
+}
+
+h1 {
+    font-family: 'Bebas Neue', cursive;
+}
+
+.button {
+    font-family: 'Bebas Neue', cursive;
+    width: 200px;
+    height: 45px;
+    font-size: 20px;
+}
+
+.button1 {
+    background-color: black;
+    color: white;
+    border: 2px solid #ffffff;
+}
+
+.button2 {
+    background-color: white;
+    color: black;
+    border: 2px solid #ffffff;
+}
+
+.button3 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    width: 170px;
+    height: 220px;
+    background-color: transparent;
+    color: white;
+    border: 2px solid #ffffff;
+    border-radius: 1rem;
+    padding-top: 125px;
+}
+
+.button4 {
+    background-color: white;
+    color: black;
+    border: 2px solid #ffffff;
+    border-radius: 0.2rem;
+    height: 2.5rem;
+    width: 100%;
+}
+
+.button1:hover,
+.button2:hover,
+.button3:hover,
+.button4:hover {
+    background: linear-gradient(to left, #cc0000 0%, #ff99cc 100%);
+    color: white;
+}
+
+.bg-image {
+    position: relative;
+    background-image: url(/images/cashierbig.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.blur {
+    backdrop-filter: blur(3px);
+    /* blur effect to the backdrop */
+    background-color: rgba(253, 220, 171, 0.2);
+    height: 100vh;
+    width: 100%;
+}
+
+.container-form {
+    width: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%)
+}
+
+.card-role {
+    width: 40rem;
+    height: 30rem;
+    background-color: black;
+    opacity: 75%;
+    border: 2px solid white;
+    border-radius: 0.5rem;
+    padding: 3rem;
+}
+
+.card-register {
+    width: 40rem;
+    height: 30rem;
+    background-color: black;
+    opacity: 75%;
+    border: 2px solid white;
+    border-radius: 0.5rem;
+    padding: 3rem;
+}
+
+.form-group {
+    margin-top: 1rem;
+}
+
+label {
+    color: white;
+}
+
+.form-control {
+    background-color: transparent;
+    border-radius: 0.2rem;
+    color: white;
+    height: 2.5rem;
+}
+
+.button-container button {
+    float: left;
+    margin-right: -3rem;
+}

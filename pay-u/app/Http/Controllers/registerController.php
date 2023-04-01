@@ -11,7 +11,7 @@ class registerController extends Controller
     //
     static function index()
     {
-        return view('TestRegister');
+        return view('Register');
     }
     static function register(Request $request)
     {
@@ -24,7 +24,7 @@ class registerController extends Controller
         $validateData['password'] = Hash::make($validateData['password']);
 
         User::create($validateData);
-        return redirect('/login')->with('success', 'Registrasi berhasil silahkan login kembali');
+        return redirect('/')->with('success', 'Registrasi berhasil silahkan login kembali');
     }
 
 }

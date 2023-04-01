@@ -11,36 +11,40 @@ class loginController extends Controller
 {
     static function index()
     {
-        return view('TempLogin');
+        return view('loginEmployee');
     }
     // public function authenticate(Request $request)
     // {
     //     $credentials = $request->only('email', 'password');
- 
+
     //     if (Auth::attempt($credentials)) {
     //         return redirect()->intended('dashboard');
     //     }
     // }
     public function postLogin(Request $request)
     {
+
         $request->validate([
             'email' => 'required',
             'password' => 'required',
         ]);
-   
+
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
             return redirect()->intended('dashboard')
-                        ->withSuccess('You have Successfully loggedin');
+                ->withSuccess('You have Successfully loggedin');
         }
-  
-        return redirect("login")->withSuccess('Oppes! You have entered invalid credentials');
-        
+
+        return redirect("login")->with('credential', 'Oppes! You have entered invalid credentials');
+
     }
-    public function logout() {
-        Session::flush();
+    public function logout(Request $request)
+    {
+
         Auth::logout();
-  
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
         return Redirect('login');
     }
 }

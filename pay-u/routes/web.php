@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\registerController;
 use App\Http\Controllers\loginController;
+use App\Http\Controllers\dashboardController;
+use App\Http\Controllers\produkController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,11 +18,13 @@ use App\Http\Controllers\loginController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('landing');
 });
 
 Route::get('/register', [registerController::class, 'index']);
 Route::post('/register', [registerController::class, 'register'])->name('register');
-Route::get('/login', [loginController::class, 'index'])->name('login');
-Route::post('/post-login', [loginController::class, 'postLogin'])->name('login.post'); 
+Route::get('/login', [loginController::class, 'index'])->name('login')->middleware('guest');
+Route::post('/post-login', [loginController::class, 'postLogin'])->name('login.post');
 Route::get('/logout', [loginController::class, 'logout'])->name('logout');
+Route::get('/dashboard', [dashboardController::class, 'index'])->middleware('auth');
+Route::get('/stokbarang', [produkController::class, 'index']);
