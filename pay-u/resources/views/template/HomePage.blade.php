@@ -13,21 +13,21 @@
         <nav class="side-bars">
             <ul>
                 <li>
-                    <a href="#" class="logo">
+                    <a href="{{ route('dashboard') }}" class="logo">
                         <img src="/images/logo.png" />
                         <span class="nav-item">Pay-U</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{{ route('dashboard') }}">
                         <i class="fas fa-home"></i>
                         <span class="nav-item">Dashboard</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{{ route('profile.edit') }}">
                         <i class="fas fa-user"></i>
-                        <span class="nav-item">profile</span>
+                        <span class="nav-item">Profile</span>
                     </a>
                 </li>
                 <li>
@@ -57,7 +57,7 @@
                 <li>
                     <a href="#">
                         <i class="fas fa-cog"></i>
-                        <span class="nav-item">setting</span>
+                        <span class="nav-item">Settings</span>
                     </a>
                 </li>
                 <li>
