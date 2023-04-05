@@ -29,12 +29,12 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="username" class="col-md-4 col-form-label text-md-right">{{ __('Username') }}</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-6">
-                                <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username', $user->username) }}" autocomplete="username" autofocus>
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email', $user->email) }}" autocomplete="email">
 
-                                @error('username')
+                                @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -43,12 +43,59 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                            <label for="role" class="col-md-4 col-form-label text-md-right">{{ __('Role') }}</label>
+                            <div class="col-md-6">
+                                <select id="role" class="form-control" name="role">
+                                <option value="kasir" {{ $user->role == 'kasir' ? 'selected' : '' }}>Kasir</option>
+                                <option value="manajer" {{ $user->role == 'manajer' ? 'selected' : '' }}>Manajer</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <script>
+                            $(document).ready(function() {
+                            // add this line to test that the selector works
+                            $('#auth-password').hide();
+
+                            // the rest of the code
+                            $('#role').change(function() {
+                                var selectedRole = $(this).val();
+                                if (selectedRole == 'manajer') {
+                                $('#auth-password').show();
+                                } else {
+                                $('#auth-password').hide();
+                                }
+                            });
+                            });
+                        </script>
+
+                        @if ($errors->has('authorization_password'))
+                            <script>
+                                alert("{{ $errors->first('authorization_password') }}");
+                            </script>
+                        @endif
+
+
+                        <script>
+                            @if(session('success'))
+                                swal({
+                                    title: "Success!",
+                                    text: "{{ session('success') }}",
+                                    type: "success",
+                                    timer: 3000,
+                                    showConfirmButton: false
+                                });
+                            @endif
+                        </script>
+
+
+                        <div class="form-group row" id="auth-password" style="display:none">
+                            <label for="authorization_password" class="col-md-4 col-form-label text-md-right">{{ __('Password Otorisasi') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email', $user->email) }}" autocomplete="email">
+                                <input id="authorization_password" type="password" class="form-control @error('authorization_password') is-invalid @enderror" name="authorization_password" autocomplete="current-password">
 
-                                @error('email')
+                                @error('authorization_password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

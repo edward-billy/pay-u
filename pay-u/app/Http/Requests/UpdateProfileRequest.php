@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
 class UpdateProfileRequest extends FormRequest
@@ -23,18 +24,32 @@ class UpdateProfileRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        
+        $rules = [
             'name' => [
                 'required', 'string', 'max:255'
-            ],
-            'username' => [
-                'required', 'string', 'max:255',
-                Rule::unique('users', 'username')->ignore(Auth::user()->id)
             ],
             'email' => [
                 'required', 'email', 'max:255',
                 Rule::unique('users', 'email')->ignore(Auth::user()->id)
             ],
+            'role' => [
+                'required', 'string', Rule::in(['kasir', 'manajer'])
+            ],
         ];
+
+        if ($this->input('role') === 'manajer') {
+            $rules['authorization_password'] = [
+                'required', 'string',
+                function ($attribute, $value, $fail) {
+                    if (!Hash::check($value, '$2y$10$oAsqGkY8MeZHyM7M7Wkp6uFg.VSKTNatQOyyPXBtKOwOJxdL52YHK')) {
+                        $fail(__('The authorization password is incorrect.'));
+                    }
+                },
+            ];
+        }
+
+        return $rules;
     }
+  
 }
