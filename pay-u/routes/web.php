@@ -36,7 +36,7 @@ Route::get('/dashboard', [dashboardController::class, 'index'])->name('dashboard
 Route::get('/profile', [profileController::class, 'index'])->name('profile')->middleware('auth');
 Route::get('/cart', [cartController::class, 'index'])->name('cart')->middleware('auth');
 Route::get('/kasir', [kasirController::class, 'index'])->name('kasir')->middleware('auth');
-Route::get('/setting', [settingController::class, 'index'])->name('setting')->middleware('auth');
+
 
 // Route::get('/stokbarang', [produkController::class, 'index'])->name('stokbarang')->middleware('auth');
 // Route::get('/stokbarang/addStok', [produkController::class, 'addData'])->middleware('auth');
@@ -46,4 +46,16 @@ Route::get('/setting', [settingController::class, 'index'])->name('setting')->mi
 // Route::get('stokbarang/detail/{produk}', [produkController::class, 'detail'])->middleware('auth');
 // Route::get('stokbarang/delete/{produk}', [produkController::class, 'delete'])->middleware('auth');
 
-Route::resource('/product', productController::class)->middleware('auth');
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('profile', [profileController::class, 'edit'])->name('profile.edit');
+    Route::patch('profile', [profileController::class, 'update'])->name('profile.update');
+});
+
+Route::group(['middleware' => 'admin'], function () {
+    Route::resource('/setting', settingController::class)->middleware('auth');
+});
+Route::middleware(['auth', 'role.admin-manager'])->group(function () {
+    Route::resource('/product', productController::class)->middleware('auth');
+});
+// Tambahkan route yang hanya bisa diakses oleh role admin dan manager di sini

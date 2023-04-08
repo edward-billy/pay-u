@@ -15,6 +15,9 @@
             <h1>Edit Barang</h1>
         </header>
         <br><br>
+        <a href="{{ url('product') }}" class="btn btn-default btn-sm">
+            <i class="fa fa-plus"></i>Kembali
+        </a>
         <div class="card" id="addbarang">
             <form action="{{ url('product/' . $produk->id) }}" method="POST" enctype="multipart/form-data">
                 @method('PUT')

@@ -8,6 +8,10 @@
 
     <link rel="stylesheet" href="{{ asset('Style/style_home_page.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Include SweetAlert CSS and JS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
     <title>Pay-U | @yield('title')</title>
 </head>
 
@@ -16,7 +20,7 @@
         <nav class="side-bars">
             <ul id="sidebbb">
                 <li>
-                    <a href={{ url('/dashboard') }} class="logo">
+                    <a href="{{ route('dashboard') }}" class="logo">
                         <img src="/images/logo.png" />
                         <span class="nav-item">{{ Auth::user()->name }}</span>
                     </a>
@@ -53,12 +57,14 @@
                     <span class="nav-item">Cashier</span>
                 </a>
                 </li>
-                <li>
-                    <a href={{ route('setting') }}>
-                        <i class="fas fa-cog"></i>
-                        <span class="nav-item">setting</span>
-                    </a>
-                </li>
+                @if (auth()->user()->role == 'admin')
+                    <li>
+                        <a href={{ url('/setting') }}>
+                            <i class="fas fa-cog"></i>
+                            <span class="nav-item">Settings</span>
+                        </a>
+                    </li>
+                @endif
                 <li>
                     <a href={{ route('logout') }} class="logout">
                         <i class="fas fa-sign-out-alt"></i>

@@ -71,7 +71,7 @@ class productController extends Controller
 
         $produk->save();
 
-        session()->flash('status', 'Produk telah ditambahkan.');
+        session()->flash('success', 'Produk telah ditambahkan.');
         return redirect("product");
     }
 
@@ -172,7 +172,7 @@ class productController extends Controller
 
         }
 
-        session()->flash('status', 'Produk telah diupdate.');
+        session()->flash('success', 'Produk telah diupdate.');
         return redirect("product");
     }
 
@@ -187,7 +187,7 @@ class productController extends Controller
         }
         produk::destroy($id);
 
-        session()->flash('status', 'Produk telah berhasil dihapus.');
+        session()->flash('success', 'Produk telah berhasil dihapus.');
         return redirect("product");
     }
 }
