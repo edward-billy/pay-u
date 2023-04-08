@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -16,6 +15,7 @@ return new class extends Migration
             $table->string('nama');
             $table->string('deskripsi')->nullable();
             $table->string('stok');
+            $table->string('foto_produk')->nullable();
             $table->string('harga');
             $table->integer('kategoriId');
             $table->timestamps();

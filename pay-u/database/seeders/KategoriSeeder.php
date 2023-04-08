@@ -10,6 +10,19 @@ class KategoriSeeder extends Seeder
 {
     public function run()
     {
-        Kategori::factory()->count(10)->create();
+        $kategori = new kategori;
+        $kategori->nama = 'Makanan';
+        $kategori->deskripsi = 'Kategori yang bisa dimakan';
+        $kategori->save();
+
+        $kategori = new kategori;
+        $kategori->nama = 'Minuman';
+        $kategori->deskripsi = 'Kategori yang bisa diminum';
+        $kategori->save();
+
+        $kategori = new kategori;
+        $kategori->nama = 'Kecantikan';
+        $kategori->deskripsi = 'Kategori yang biasa digunakan untuk merawat diri';
+        $kategori->save();
     }
 }

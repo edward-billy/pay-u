@@ -6,18 +6,23 @@
     text-decoration: none;
     box-sizing: border-box;
     font-family: sans-serif;
+    z-index: 2;
 }
 
 body {
-    background: rgb(169, 225, 243);
+    background: rgb(227, 238, 241);
+}
+
+#sidebbb {
+    margin-left: -28px;
 }
 
 .side-bars {
     position: absolute;
     top: 0;
     bottom: 0;
-    height: 100%;
-    left: 0;
+    height: 120%;
+    left: 0px;
     background: rgb(24, 24, 24);
     width: 90px;
     overflow: hidden;
@@ -50,6 +55,7 @@ a {
     display: table;
     width: 300px;
     padding: 10px;
+    text-decoration-line: none;
 }
 
 .fas {
@@ -90,4 +96,98 @@ header h1 {
     font-size: 3rem;
     color: #444444;
     margin: 0;
+}
+
+.card {
+    background-color: #f8f9fa;
+    border: 1px solid #161515;
+    border-radius: 5px;
+    padding: 50px;
+}
+
+.styled-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.styled-table thead tr {
+    background-color: rgba(233, 208, 166, 0.568);
+    color: #0a0a0a;
+    text-align: left;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #242121;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #ddd3d3;
+}
+
+#addstok {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: rgb(169, 225, 243);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    width: 9rem;
+}
+
+#addbarang {
+    width: 50rem;
+}
+
+#stokbarang {
+    width: 80rem;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    width: 20rem;
+}
+
+.alert-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
+#editstok {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: rgb(245, 219, 165);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    width: 4rem;
+}
+
+#detailstok {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: rgb(169, 225, 243);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    width: 4rem;
+    text-align: end;
 }

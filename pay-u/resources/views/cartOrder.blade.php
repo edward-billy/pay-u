@@ -13,7 +13,7 @@
 
     <body>
         <header>
-            <h1>Stok Barang</h1>
+            <h1>Purchase Order</h1>
         </header>
 
     </body>

@@ -3,7 +3,10 @@
 
 <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="style\style_home_page.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{{ asset('Style/style_home_page.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <title>Pay-U | @yield('title')</title>
 </head>
@@ -11,51 +14,47 @@
 <body>
     <aside>
         <nav class="side-bars">
-            <ul>
+            <ul id="sidebbb">
                 <li>
-                    <a href="#" class="logo">
+                    <a href={{ url('/dashboard') }} class="logo">
                         <img src="/images/logo.png" />
-                        <span class="nav-item">Pay-U</span>
+                        <span class="nav-item">{{ Auth::user()->name }}</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href={{ url('/dashboard') }}>
                         <i class="fas fa-home"></i>
                         <span class="nav-item">Dashboard</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href={{ url('/profile') }}>
                         <i class="fas fa-user"></i>
-                        <span class="nav-item">profile</span>
+                        <span class="nav-item">Profile</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href={{ url('/cart') }}>
                         <i class="fas fa-tasks"></i>
                         <span class="nav-item">Purchase Order</span>
                     </a>
                 </li>
+                @if (auth()->user()->role == 'admin' || auth()->user()->role == 'manager')
+                    <li>
+                        <a href={{ url('/product') }}>
+                            <i class="fas fa-warehouse"></i>
+                            <span class="nav-item">Inventory</span>
+                        </a>
+                    </li>
+                @endif
 
-                <li>
-                    <a href="#">
-                        <i class="fas fa-warehouse"></i>
-                        <span class="nav-item">Inventory</span>
-                    </a>
-                </li>
-                <a href="#">
+                <a href={{ url('/kasir') }}>
                     <i class="fas fa-calculator"></i>
                     <span class="nav-item">Cashier</span>
                 </a>
                 </li>
                 <li>
-                    <a href="#">
-                        <i class="fas fa-wallet"></i>
-                        <span class="nav-item">Payment</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
+                    <a href={{ route('setting') }}>
                         <i class="fas fa-cog"></i>
                         <span class="nav-item">setting</span>
                     </a>
@@ -85,5 +84,11 @@
 
 
 </body>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.min.js"
+    integrity="sha384-heAjqF+bCxXpCWLa6Zhcp4fu20XoNIA98ecBC1YkdXhszjoejr5y9Q77hIrv8R9i" crossorigin="anonymous">
+</script>
 
 </html>

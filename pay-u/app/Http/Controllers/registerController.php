@@ -11,7 +11,7 @@ class registerController extends Controller
     //
     static function index()
     {
-        return view('Register');
+        return view('registlogin.Register');
     }
     static function register(Request $request)
     {
