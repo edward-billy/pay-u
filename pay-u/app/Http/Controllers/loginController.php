@@ -11,7 +11,7 @@ class loginController extends Controller
 {
     static function index()
     {
-        return view('loginEmployee');
+        return view('registlogin.login');
     }
     // public function authenticate(Request $request)
     // {
@@ -35,7 +35,7 @@ class loginController extends Controller
                 ->withSuccess('You have Successfully loggedin');
         }
 
-        return redirect("login")->with('credential', 'Oppes! You have entered invalid credentials');
+        return redirect("/")->with('success', 'Oppes! You have entered invalid credentials');
 
     }
     public function logout(Request $request)
@@ -45,6 +45,6 @@ class loginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return Redirect('login');
+        return Redirect('/');
     }
 }

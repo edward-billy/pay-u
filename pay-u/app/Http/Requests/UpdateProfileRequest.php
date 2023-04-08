@@ -24,23 +24,29 @@ class UpdateProfileRequest extends FormRequest
      */
     public function rules(): array
     {
-        
+
         $rules = [
             'name' => [
-                'required', 'string', 'max:255'
+                'required',
+                'string',
+                'max:255'
             ],
             'email' => [
-                'required', 'email', 'max:255',
+                'required',
+                'email',
+                'max:255',
                 Rule::unique('users', 'email')->ignore(Auth::user()->id)
             ],
             'role' => [
-                'required', 'string', Rule::in(['kasir', 'manajer'])
+                'required',
+                'string', Rule::in(['kasir', 'manager'])
             ],
         ];
 
-        if ($this->input('role') === 'manajer') {
+        if ($this->input('role') === 'manager') {
             $rules['authorization_password'] = [
-                'required', 'string',
+                'required',
+                'string',
                 function ($attribute, $value, $fail) {
                     if (!Hash::check($value, '$2y$10$oAsqGkY8MeZHyM7M7Wkp6uFg.VSKTNatQOyyPXBtKOwOJxdL52YHK')) {
                         $fail(__('The authorization password is incorrect.'));
@@ -51,5 +57,5 @@ class UpdateProfileRequest extends FormRequest
 
         return $rules;
     }
-  
+
 }

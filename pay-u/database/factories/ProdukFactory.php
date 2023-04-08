@@ -14,11 +14,12 @@ class ProdukFactory extends Factory
 
     public function definition()
     {
+
         return [
             'nama' => $this->faker->word,
             'deskripsi' => $this->faker->sentence,
             'stok' => $this->faker->randomDigit,
-            'harga' => $this->faker->randomFloat(2, 10, 100),
+            'harga' => $this->faker->numberBetween(20000, 2000000),
             'kategoriId' => function () {
                 return \App\Models\kategori::factory()->create()->id;
             }

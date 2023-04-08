@@ -24,8 +24,8 @@ class profileController extends Controller
 
 
         $user->update($data);
-    
+
         return redirect()->route('profile.edit')->with('success', 'Your profile has been updated successfully.');
     }
-    
+
 }
