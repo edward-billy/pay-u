@@ -10,19 +10,25 @@ class KategoriSeeder extends Seeder
 {
     public function run()
     {
-        $kategori = new kategori;
-        $kategori->nama = 'Makanan';
-        $kategori->deskripsi = 'Kategori yang bisa dimakan';
-        $kategori->save();
+        // $kategori = new kategori;
+        // $kategori->nama = 'Makanan';
+        // $kategori->deskripsi = 'Kategori yang bisa dimakan';
+        // $kategori->save();
 
-        $kategori = new kategori;
-        $kategori->nama = 'Minuman';
-        $kategori->deskripsi = 'Kategori yang bisa diminum';
-        $kategori->save();
+        // $kategori = new kategori;
+        // $kategori->nama = 'Minuman';
+        // $kategori->deskripsi = 'Kategori yang bisa diminum';
+        // $kategori->save();
 
-        $kategori = new kategori;
-        $kategori->nama = 'Kecantikan';
-        $kategori->deskripsi = 'Kategori yang biasa digunakan untuk merawat diri';
-        $kategori->save();
+        // $kategori = new kategori;
+        // $kategori->nama = 'Kecantikan';
+        // $kategori->deskripsi = 'Kategori yang biasa digunakan untuk merawat diri';
+        // $kategori->save();
+        $categoryNames = ['Makanan', 'Minuman', 'Cemilan', 'Pakaian', 'Elektronik', 'Furnitur', 'Kecantikan', 'Olahraga', 'Kesehatan', 'Hobi'];
+
+        // Create categories
+        foreach ($categoryNames as $categoryName) {
+            Kategori::factory()->create(['nama' => $categoryName]);
+        }
     }
 }
