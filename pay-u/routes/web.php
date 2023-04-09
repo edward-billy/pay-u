@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\registerController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\dashboardController;
-use App\Http\Controllers\produkController;
 use App\Http\Controllers\settingController;
 
 
@@ -55,7 +54,7 @@ Route::group(['middleware' => 'auth'], function () {
 Route::group(['middleware' => 'admin'], function () {
     Route::resource('/setting', settingController::class)->middleware('auth');
 });
+
 Route::middleware(['auth', 'role.admin-manager'])->group(function () {
     Route::resource('/product', productController::class)->middleware('auth');
 });
-// Tambahkan route yang hanya bisa diakses oleh role admin dan manager di sini
