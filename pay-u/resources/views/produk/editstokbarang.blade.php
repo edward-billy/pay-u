@@ -39,7 +39,8 @@
                                 <select name="kategoriId" id="kategoriId">
                                     <option value="">--Pilih Kategori--</option>
                                     @foreach ($kategoris as $item)
-                                        <option value={{ $item->id }}>{{ $item->nama }}</option>
+                                        <option value={{ $item->id }} @if ($item->id === $produk->kategoriId) selected @endif>
+                                            {{ $item->nama }}</option>
                                     @endforeach
                                 </select>
                                 <div class="text-danger">
