@@ -16,13 +16,13 @@
             <h1>Setting</h1>
         </header>
         <br><br>
-        @if (session()->has('status'))
+        {{-- @if (session()->has('status'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 {{ session('success') }}.
                 {{ session()->get('status') }}
             </div>
-        @endif
+        @endif --}}
         <div class="card" style="width: 100rem; z-index: 1;">
             <div class="card-body">
                 <a href="{{ url('setting/create') }}" class="button" id="addstok">Tambah User</a>
@@ -52,10 +52,7 @@
                                         style="width: 55px;">
                                         edit
                                     </a>
-                                    <a href="{{ url('setting/' . $item->id) }}" class="btn btn-warning btn-sm"
-                                        style="width: 55px;">
-                                        detail
-                                    </a>
+
                                     <form method="post" action="/setting/{{ $item->id }}" style="display:inline"
                                         onsubmit="return confirm('Yakin hapus?')">
                                         @csrf
@@ -70,6 +67,17 @@
             </div>
         </div>
     </body>
+    <script>
+        @if (session('success'))
+            swal({
+                title: "Success!",
+                text: "{{ session('success') }}",
+                type: "success",
+                timer: 3000,
+                showConfirmButton: false
+            });
+        @endif
+    </script>
 
     </html>
 @endsection

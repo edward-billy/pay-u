@@ -48,7 +48,7 @@ class settingController extends Controller
 
         $users->save();
 
-        session()->flash('status', 'Akun telah ditambahkan, silahkan coba login');
+        session()->flash('success', 'Akun telah ditambahkan, silahkan coba login');
         return redirect("setting");
 
     }
@@ -66,6 +66,9 @@ class settingController extends Controller
     public function edit(string $id)
     {
         //
+        $user = User::find($id);
+
+        return view('setting.edituser', compact('user'));
     }
 
     /**
@@ -74,6 +77,37 @@ class settingController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $user = User::find($id);
+
+        $request->validate(
+            [
+                'name' => 'required|min:3',
+                'email' => 'required|email',
+                'role' => 'required',
+                'password' => 'required|min:8',
+            ],
+            [
+                'name.min' => "Kolom harus memiliki minimal 3 karakter",
+                'name.required' => "Kolom ini wajib diisi",
+                'email.email' => "Kolom ini harus berbentuk email",
+                'email.required' => "Kolom ini wajib diisi",
+                'role.required' => "Harus memiliki Role",
+                'password.required' => "Kolom ini wajib diisi",
+                'password.min' => 'Kolom harus memiliki minimal 8 karakter'
+            ]
+        );
+
+        User::where('id', $user->id)
+            ->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'role' => $request->role,
+                'password' => bcrypt($request->password),
+            ]);
+
+        session()->flash('success', 'User telah diupdate.');
+        return redirect("setting");
+
     }
 
     /**
@@ -82,5 +116,9 @@ class settingController extends Controller
     public function destroy(string $id)
     {
         //
+        User::destroy($id);
+
+        session()->flash('success', 'User telah berhasil dihapus.');
+        return redirect("setting");
     }
 }
