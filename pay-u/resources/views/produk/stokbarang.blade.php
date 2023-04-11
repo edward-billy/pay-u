@@ -36,6 +36,7 @@
                             <th>Kategori</th>
                             <th>Deskripsi</th>
                             <th>Stok</th>
+                            <td>Gambar</td>
                             <th>Harga</th>
                             <th class="text-center">Action</th>
                         </tr>
@@ -49,6 +50,7 @@
                                 <td>{{ $item->kategori->nama }}</td>
                                 <td>{{ $item->deskripsi }}</td>
                                 <td>{{ $item->stok }}</td>
+                                <td><img src="{{ url('kategori/' . $item->foto_produk) }}" width='150px'></td>
                                 <td>IDR. {{ number_format($item->harga) }}-,</td>
                                 <td class="text-center">
                                     <a href="{{ url('product/' . $item->id . '/edit') }}" class="btn btn-primary btn-sm"

@@ -80,8 +80,8 @@ class productController extends Controller
      */
     public function show($id)
     {
-        //
-        $produk = produk::find($id);
+        $produk = produk::where('kategoriId');
+        // $produk = produk::find($id);
         return view('produk.detailstokbarang', compact('produk'));
     }
 
@@ -111,7 +111,7 @@ class productController extends Controller
                 'deskripsi' => 'required:min:3',
                 'stok' => 'required|integer|min:1',
                 'harga' => 'required|integer|min:1',
-                // 'foto_produk' => 'required|mimes:jpg,png,jpeg|max:16000'
+                'foto_produk' => 'mimes:jpg,png,jpeg|max:16000'
             ],
             [
                 'nama.min' => 'Kolom harus memiliki minimal 3 karakter',
@@ -124,7 +124,7 @@ class productController extends Controller
                 'harga.integer' => 'Kolom harus berupa integer',
                 'harga.required' => 'Kolom ini wajib diisi',
                 'harga.min' => 'Kolom harus memiliki minimal 1 karakter',
-                // 'foto_produk.required' => 'Kolom ini wajib diisi',
+                'foto_produk.required' => 'Kolom ini wajib diisi',
             ]
         );
 
