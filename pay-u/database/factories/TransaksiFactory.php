@@ -19,6 +19,7 @@ class TransaksiFactory extends Factory
             'customerId' => \App\Models\Customer::factory()->create()->id,
             'userId' => \App\Models\User::factory()->create()->id,
             'total' => $this->faker->numberBetween(10000, 1000000),
+            'created_at' => $this->faker->dateTimeBetween('-2 year', 'now'),
         ];
     }
 

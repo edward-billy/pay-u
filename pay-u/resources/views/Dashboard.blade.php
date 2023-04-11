@@ -15,7 +15,18 @@
         <header>
             <h1>Dashboard</h1>
         </header>
+        <div class="col-md-8">
+            <div class="card">
+                    <div class="card-body">
 
+                        <h1>{{ $chart1->options['chart_title'] }}</h1>
+                        {!! $chart1->renderHtml() !!}
+                        {!! $chart1->renderChartJsLibrary() !!}
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+                        {!! $chart1->renderJs() !!}
+                    </div>
+            </div>
+        </div>
     </body>
 
     </html>
