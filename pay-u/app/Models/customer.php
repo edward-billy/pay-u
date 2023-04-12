@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class customer extends Model
 {
+    protected $fillable = [
+        'email',
+        "nama",
+        "alamat",
+        "noHp"
+    ];
     use HasFactory;
     public function produks()
     {
@@ -20,4 +26,6 @@ class customer extends Model
     {
         return $this->hasMany(transaksiDetail::class);
     }
+
+
 }

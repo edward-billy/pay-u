@@ -14,6 +14,7 @@ class productController extends Controller
     public function index()
     {
         $stok = produk::with('kategori')->simplePaginate(8);
+
         return view('produk.stokbarang', compact('stok'));
     }
 
@@ -80,8 +81,8 @@ class productController extends Controller
      */
     public function show($id)
     {
-        $produk = produk::where('kategoriId');
-        // $produk = produk::find($id);
+        // $produk = produk::where('kategoriId');
+        $produk = produk::find($id);
         return view('produk.detailstokbarang', compact('produk'));
     }
 
