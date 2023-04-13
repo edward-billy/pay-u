@@ -15,12 +15,17 @@
         <header>
             <h1>Detail Transaksi</h1>
         </header>
+        <br>
         <div class="card" style="width: 100rem; z-index: 1;">
             <div class="card-body">
+                
+                <form action="{{ url()->previous() }}">
+                    <button class="btn btn-danger btn-sm">Back</button>
+                </form>
                 <br>
-                {{-- <h1>{{ $data->invoiceId }}</h1>
-                <h2>{{ $item->nama }}</h2>
-                <h2>{{ $item->name }}</h2> --}}
+                <h3>Invoice ID: {{ $invoiceId }}</h3>
+                <h4>Nama Customer: {{ $nama }}</h4>
+                <h4>Nama Kasir: {{ $name }}</h4>
                 <table class="table">
                     <thead class="table-dark">
                         <tr>

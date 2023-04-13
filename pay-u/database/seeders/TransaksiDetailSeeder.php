@@ -13,6 +13,6 @@ class TransaksiDetailSeeder extends Seeder
      */
     public function run(): void
     {
-        transaksiDetail::factory()->count(50)->create();
+        transaksiDetail::factory()->count(760)->create();
     }
 }

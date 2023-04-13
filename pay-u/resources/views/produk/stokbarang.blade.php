@@ -16,7 +16,7 @@
         <header>
             <h1>Inventory</h1>
         </header>
-        <br><br>
+        <br>
         {{-- @if (session()->has('status'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -29,6 +29,7 @@
                 <a href="{{ url('product/create') }}" class="button" id="addstok">Tambah Data</a>
                 <br><br>
                 <table class="table">
+                    <br>
                     <thead class="table-dark">
                         <tr>
                             <th>No</th>

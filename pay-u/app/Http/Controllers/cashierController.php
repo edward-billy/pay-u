@@ -115,15 +115,14 @@ class cashierController extends Controller
 
     public function detail($id)
     {
-        // $data = DB::table('transaksis')->join('customers', 'transaksis.customerId', '=', 'customers.id')
-        //     ->join('users', 'transaksis.userId', '=', 'users.id')
-        //     ->select('transaksis.*', 'customers.nama as nama', 'users.name as name')
-        //     ->find($id);
+        $invoiceId = request()->query('invoiceId');
+        $nama = request()->query('nama');
+        $name = request()->query('name');
         $data = DB::table('transaksidetails')->join('transaksis', 'transaksidetails.transaksiId', "=", 'transaksis.id')
             ->join('produks', 'transaksidetails.produkId', "=", "produks.id")
             ->select("transaksidetails.*", 'transaksis.invoiceId as invoice', 'produks.nama as namaproduk')
             ->where('transaksidetails.transaksiId', $id)->get();
 
-        return view('history.detail', compact('data'));
+        return view('history.detail', compact('invoiceId','nama','name','data'));
     }
 }
