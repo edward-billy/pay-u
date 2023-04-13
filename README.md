@@ -5,4 +5,4 @@ Cara pull dan push
 3. git pull origin main #Sebelum Push, inget selalu pull untuk update perubahan dulu ya ges <br>
 4. git add namafile <br>
 5. git commit -m 'namacaption' <br>
-6. git push -u origin main #up file ke git <br?
+6. git push -u origin main #up file ke git <br>
