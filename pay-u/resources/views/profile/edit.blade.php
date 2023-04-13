@@ -1,12 +1,18 @@
 @extends('template.HomePage')
 
 @section('content')
-    <div class="container">
+    <header>
+        <h1>Update Profile</h1>
+    </header>
+    <br>
+    <div class="card" style="width: 50rem; z-index: 1;">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-14">
                 <div class="card">
                     <div class="card-header">
-                        Update Profile
+                        <form action="{{ url()->previous() }}">
+                            <button class="btn btn-danger btn-sm">Back</button>
+                        </form>
                     </div>
 
                     <div class="card-body">
