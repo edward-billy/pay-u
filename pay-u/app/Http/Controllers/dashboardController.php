@@ -31,8 +31,6 @@ class dashboardController extends Controller
             'group_by_period' => 'month',
             'aggregate_field' => 'amount',
             'chart_type' => 'bar',
-            'height' => '200',
-            'width' => '200',
             'date_format' => 'F Y', 
             'group_by_field_format' => 'm-Y',
         ];
