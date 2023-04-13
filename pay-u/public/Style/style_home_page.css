@@ -26,14 +26,14 @@ body {
     background: rgb(24, 24, 24);
     width: 90px;
     overflow: hidden;
-    transition: width 0.2s linear;
+    transition: width 0.4s ease;
     box-shadow: 0 20px 35 px rgba(255, 255, 255, 0.1);
 }
 
 .logo {
     text-align: center;
     display: flex;
-    transition: all 0.5s ease;
+    transition: all 0.4s ease;
     margin: 10px 0 0 10px;
 }
 
@@ -79,7 +79,7 @@ a:hover {
 
 .side-bars:hover {
     width: 250px;
-    transition: all 1s ease;
+    transition: all 0.4s ease;
 }
 
 .logout {
