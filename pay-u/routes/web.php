@@ -35,6 +35,7 @@ Route::get('/dashboard', [dashboardController::class, 'index'])->name('dashboard
 Route::get('/profile', [profileController::class, 'index'])->name('profile')->middleware('auth');
 Route::get('/cart', [cartController::class, 'index'])->name('cart')->middleware('auth');
 Route::get('/kasir', [kasirController::class, 'index'])->name('kasir')->middleware('auth');
+Route::get('/barang', [kasirController::class, 'index'])->name('barang')->middleware('auth');
 
 
 // Route::get('/stokbarang', [produkController::class, 'index'])->name('stokbarang')->middleware('auth');
