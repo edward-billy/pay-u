@@ -30,54 +30,59 @@
         @if (empty($cart) || count($cart) == 0)
             <strong>Tidak ada produk yang ditambahkan</strong>
         @else
-            <div class="card" style="width: 55rem; height: 45rem; z-index: 1;">
-                <div class="card-body">
-                    <table class="table">
-                        <thead class="table-dark">
-                            <tr>
-                                <th>No</th>
-                                <th>Nama Produk</th>
-                                <th>Harga</th>
-                                <th>Kuantitas</th>
-                                <th>Total Harga</th>
-                                <th class="text-center">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php $no = 1;
-                            $totalBill = 0; ?>
-                            @foreach ($cart as $item => $val)
-                                <?php $total = $val['harga'] * $val['jumlah']; ?>
-                                <tr>
-                                    <td>{{ $no++ }}</td>
-                                    <td>{{ $val['nama'] }}</td>
-                                    <td>Rp. {{ number_format($val['harga']) }}</td>
-                                    <td>{{ $val['jumlah'] }}</td>
-                                    <td>Rp. {{ number_format($total) }}</td>
-                                    <td>
-                                        <form action="{{ url('/cashier/hapus/' . $item) }}">
-                                            <button type="submit" class="btn btn-danger btn-sm"
-                                                style="width: 90px">dd</button>
-                                        </form>
-                                    </td>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-8" style="z-index: 1">
+                        <div class="card card-price p-1" style="height: 500px;">
+                            <div class="card-body">
+                                <table class="table">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th scope="col" class="text-center">No</th>
+                                            <th scope="col" class="text-center">Nama Produk</th>
+                                            <th scope="col" class="text-center">Harga</th>
+                                            <th scope="col" class="text-center">Kuantitas</th>
+                                            <th scope="col" class="text-center">Total Harga</th>
+                                            <th scope="col" class="text-center">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <!-- ISI TABLE -->
 
-                                </tr>
-                                <?php $totalBill += $total; ?>
-                            @endforeach
-                            <tr>
-                                <th colspan="4">Total </th>
-                                <th>Rp. {{ number_format($totalBill) }}</th>
-                                <th>
-                                    <form action="{{ route('buy') }}">
-                                        {{-- <button type="submit" class="btn btn-success btn-sm"
-                                            style="width: 90px">Bayar</button> --}}
-                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
-                                            data-target="#myModal">Beli</button>
-                                    </form>
-                                </th>
-                            </tr>
-                        </tbody>
-                    </table>
+                                    <tbody>
+                                        <?php $no = 1;
+                                        $totalBill = 0; ?>
+                                        @foreach ($cart as $item => $val)
+                                            <?php $total = $val['harga'] * $val['jumlah']; ?>
+                                            <tr>
+
+                                                <td class="text-center">{{ $no++ }}</td>
+                                                <td class="text-center">{{ $val['nama'] }}</td>
+                                                <td class="text-center">Rp. {{ number_format($val['harga']) }}</td>
+                                                <td class="text-center">{{ $val['jumlah'] }}</td>
+                                                <td class="text-center">Rp. {{ number_format($total) }}</td>
+                                                <td class="text-center">
+                                                    <form action="{{ url('/cashier/hapus/' . $item) }}">
+                                                        <button type="submit" class="btn btn-danger btn-sm text-center"
+                                                            style="width: 80px">Hapus</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                            <?php $totalBill += $total; ?>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="card-footer">
+                                Total: <strong>{{ number_format($totalBill) }}</strong>
+                                <br><br>
+                                <form action="{{ route('buy') }}">
+                                    <button type="button" class="btn button-pay btn-lg" data-toggle="modal"
+                                        data-target="#myModal">Beli</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         @endif
@@ -148,8 +153,8 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Beli</button>
                 </div>
                 </form>
             </div>

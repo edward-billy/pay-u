@@ -22,10 +22,9 @@ class cashierController extends Controller
     public function kategoriCart(Request $request)
     {
         $category = $request->query('category');
-        $stok = produk::with('kategori')->where('kategoriId', $category)->simplePaginate(8);
+        $stok = produk::with('kategori')->where('kategoriId', $category)->get();
 
-        return view('cashier.kategorikasir', compact('stok'));
-
+        return view('cashier.kategoriKasir', compact('stok'));
     }
 
     public function tambahCart(Request $request, $id)
@@ -123,6 +122,6 @@ class cashierController extends Controller
             ->select("transaksidetails.*", 'transaksis.invoiceId as invoice', 'produks.nama as namaproduk')
             ->where('transaksidetails.transaksiId', $id)->get();
 
-        return view('history.detail', compact('invoiceId','nama','name','data'));
+        return view('history.detail', compact('invoiceId', 'nama', 'name', 'data'));
     }
 }
