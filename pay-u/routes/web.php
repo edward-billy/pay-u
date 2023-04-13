@@ -55,12 +55,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/cashier/transaksi', [cashierController::class, 'transaksiCart'])->name('buy')->middleware("auth");
     Route::get('/history', [cashierController::class, 'history'])->middleware('auth');
     Route::get('/history/detail/{id}', [cashierController::class, 'detail'])->middleware('auth');
-
+    Route::get('/history/detail/{id}/{invoiceId}/{nama}/{name}', [cashierController::class, 'detail'])->middleware('auth');
 });
 
-Route::group(['middleware' => 'admin'], function () {
+// Route::group(['middleware' => 'admin'], function () {
     Route::resource('/setting', settingController::class)->middleware('auth');
-});
+// });
 
 Route::middleware(['auth', 'role.admin-manager'])->group(function () {
     Route::resource('/product', productController::class)->middleware('auth');

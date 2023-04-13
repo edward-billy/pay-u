@@ -43,11 +43,9 @@
                                 </td>
                                 <td>Rp. {{ number_format($item->total) }}-,</td>
                                 <td class="text-center">
-                                    <a href="{{ url('/history/detail/' . $item->id) }}" class="btn btn-warning btn-sm"
-                                        style="width: 55px;">
-                                        detail
-                                    </a>
-
+                                <a href="{{ url('/history/detail/' . $item->id) }}?invoiceId={{ $item->invoiceId }}&nama={{ $item->nama }}&name={{ $item->name }}" class="btn btn-warning btn-sm" style="width: 55px;">
+                                    detail
+                                </a>
                                 </td>
                             </tr>
                         @endforeach
