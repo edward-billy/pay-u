@@ -92,6 +92,65 @@ a:hover {
     margin-top: 3rem;
 }
 
+.card-price {
+    background-color: #ffffff !important;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 10px 15px rgba(0, 0, 0, 0.23);
+}
+
+.button-pay {
+    background-color: #00C950 !important;
+    color: white !important;
+    border: 2px solid #050505 !important;
+    width: 100% !important;
+}
+
+.button-pay:hover {
+    background-color: #00C950;
+    color: white;
+    border: 2px solid #050505;
+    width: 100%;
+}
+
+.content-left {
+    border-right: 1px groove #b8b8b8;
+}
+
+h5.text-center {
+    padding-top: 4rem;
+}
+
+.text-shadow {
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+    /* Fallback for older browsers */
+    filter: dropshadow(2px 2px 2px rgba(0, 0, 0, 0.5));
+}
+
+.card-category {
+    background-color: #FFFFFF;
+    border: 1px solid #161515;
+    border-radius: 1rem;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 10px 15px rgba(0, 0, 0, 0.23);
+    width: 10rem;
+    height: 10rem;
+    margin-top: 3rem;
+    margin-right: 3rem;
+}
+
+.card-item {
+    background-color: #ffffff;
+    border: 1px solid #161515;
+    border-radius: 5px;
+    margin-top: 1rem;
+    padding: 1rem;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 10px 15px rgba(0, 0, 0, 0.23);
+    width: 40%;
+    margin-right: 2rem;
+}
+
+p {
+    margin-bottom: 0rem;
+}
+
 header h1 {
     font-size: 3rem;
     color: #444444;
@@ -190,4 +249,20 @@ header h1 {
     font-weight: bold;
     width: 4rem;
     text-align: end;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: inner-spin-button;
+    margin: 0;
+    opacity: 1;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    font-size: 16px;
+    width: 60px;
 }
