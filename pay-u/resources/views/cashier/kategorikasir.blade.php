@@ -18,7 +18,9 @@
         <br>
         <div class="card" style="width: 50rem; height: 50rem; z-index: 1;">
             <div class="card-body">
-
+                <form action="{{ url()->previous() }}">
+                    <button class="btn btn-danger btn-sm">Back</button>
+                </form>
                 <br><br>
                 <table class="table">
                     <thead class="table-dark">
