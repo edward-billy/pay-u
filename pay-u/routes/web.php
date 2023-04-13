@@ -56,6 +56,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/history', [cashierController::class, 'history'])->middleware('auth');
     Route::get('/history/detail/{id}', [cashierController::class, 'detail'])->middleware('auth');
     Route::get('/history/detail/{id}/{invoiceId}/{nama}/{name}', [cashierController::class, 'detail'])->middleware('auth');
+    Route::get('/history/print', [cashierController::class, 'generateCsv'])->middleware('auth');
 });
 
 // Route::group(['middleware' => 'admin'], function () {

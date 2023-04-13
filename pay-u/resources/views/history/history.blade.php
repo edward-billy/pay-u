@@ -17,7 +17,12 @@
         </header>
         <br>
         <div class="card" style="width: 100rem; z-index: 1;">
-            <div class="card-body">
+        <div class="card-body">
+            <div class="text-end">
+                <a href="{{ url('/history/print') }}" class="btn btn-primary">
+                    <i class="bi bi-printer"></i> Download History
+                </a>
+            </div>
                 <br>
                 <table class="table">
                     <thead class="table-dark">
@@ -31,10 +36,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $no = 1; ?>
+                        <?php $index = ($data->currentPage() - 1) * $data->perPage() + 1; ?>
                         @foreach ($data as $item)
                             <tr>
-                                <td>{{ $no++ }}</td>
+                                <td>{{ $index++ }}</td>
                                 <td>{{ $item->invoiceId }}</td>
                                 <td>{{ $item->nama }}</td>
                                 <td>

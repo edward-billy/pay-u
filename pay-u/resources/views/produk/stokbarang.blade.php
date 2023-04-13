@@ -43,10 +43,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $no = 1; ?>
+                        <?php $index = ($stok->currentPage() - 1) * $stok->perPage() + 1; ?>
                         @foreach ($stok as $item)
                             <tr>
-                                <td>{{ $no++ }}</td>
+                                <td>{{ $index++ }}</td>
                                 <td>{{ $item->nama }}</td>
                                 <td>{{ $item->kategori->nama }}</td>
                                 <td>{{ $item->deskripsi }}</td>
