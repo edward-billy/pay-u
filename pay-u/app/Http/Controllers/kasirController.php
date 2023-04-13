@@ -9,6 +9,6 @@ class kasirController extends Controller
     //
     public function index()
     {
-        return view('kasir');
+        return view('cashier.kasir');
     }
 }

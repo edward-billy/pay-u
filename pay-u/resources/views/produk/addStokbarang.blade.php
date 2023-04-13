@@ -82,7 +82,8 @@
                                 </div>
                             </div>
                             <br>
-                            <div class="form=group">
+                            <!-- BUTTON -->
+                            <div class="form-group">
                                 <button class="btn btn-primary btn-sm">Save</button>
                             </div>
                         </div>

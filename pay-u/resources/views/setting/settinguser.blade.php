@@ -23,7 +23,9 @@
                 {{ session()->get('status') }}
             </div>
         @endif
-        <div class="card" style="width: 100rem; z-index: 1;">
+
+        <div class="container-fluid" style="margin-right: 3rem">
+        <div class="card" style="z-index: 1;">
             <div class="card-body">
                 <a href="{{ url('setting/create') }}" class="button" id="addstok">Tambah User</a>
                 <br><br>
@@ -68,6 +70,7 @@
                     </tbody>
                 </table>
             </div>
+        </div>
         </div>
     </body>
 

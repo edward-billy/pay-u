@@ -13,7 +13,7 @@ class productController extends Controller
      */
     public function index()
     {
-        $stok = produk::with('kategori')->simplePaginate(8);
+        $stok = produk::with('kategori')->paginate(8);
         return view('produk.stokbarang', compact('stok'));
     }
 
