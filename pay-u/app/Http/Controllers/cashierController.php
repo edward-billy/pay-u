@@ -63,7 +63,6 @@ class cashierController extends Controller
     public function transaksiCart(Request $request)
     {
         $cart = session("cart");
-
         $customerData = $request->validate([
             "email" => "nullable|email",
             "nama" => "required|min:4|max:255",
@@ -72,22 +71,24 @@ class cashierController extends Controller
         ]);
 
         foreach ($cart as $item => $val) {
+            $produk = produk::find($item);
+            if ($produk) {
+                $produk->stok -= $val['jumlah'];
+                $produk->save();
+
+            }
             $total = $val['harga'] * $val['jumlah'];
             $totalBill = 0;
             $totalBill += $total;
             $id = $item;
 
         }
-        // Try to find a user with the given email
         $customer = customer::where('email', $request->email)->first();
 
-        // If the user doesn't exist, create a new one
         if (!$customer) {
             customer::create($customerData);
         }
         $custID = customer::where('email', $request->email)->pluck('id')->first();
-
-        // $userId = $user->id;
 
         $transID = transaksi::addTransaksi($totalBill, $custID);
 
