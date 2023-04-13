@@ -9,6 +9,7 @@ use App\Http\Controllers\registerController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\settingController;
+use App\Http\Controllers\cashierController;
 
 
 /*
@@ -31,10 +32,6 @@ Route::post('/register', [registerController::class, 'register'])->name('registe
 Route::get('/login', [loginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/post-login', [loginController::class, 'postLogin'])->name('login.post');
 Route::get('/logout', [loginController::class, 'logout'])->name('logout');
-Route::get('/dashboard', [dashboardController::class, 'index'])->name('dashboard')->middleware('auth');
-Route::get('/profile', [profileController::class, 'index'])->name('profile')->middleware('auth');
-Route::get('/cart', [cartController::class, 'index'])->name('cart')->middleware('auth');
-Route::get('/kasir', [kasirController::class, 'index'])->name('kasir')->middleware('auth');
 
 
 // Route::get('/stokbarang', [produkController::class, 'index'])->name('stokbarang')->middleware('auth');
@@ -47,13 +44,23 @@ Route::get('/kasir', [kasirController::class, 'index'])->name('kasir')->middlewa
 
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('/dashboard', [dashboardController::class, 'index'])->name('dashboard')->middleware('auth');
     Route::get('profile', [profileController::class, 'edit'])->name('profile.edit');
     Route::patch('profile', [profileController::class, 'update'])->name('profile.update');
+    Route::get('/cashier', [cashierController::class, 'index'])->middleware('auth');
+    Route::get('/cashier/kategori/', [cashierController::class, 'kategoriCart'])->middleware('auth');
+    Route::get('/cashier/tambah/{id}', [cashierController::class, 'tambahCart'])->middleware('auth');
+    Route::get('/cashier/cart', [cashierController::class, 'cart'])->middleware("auth");
+    Route::get('/cashier/hapus/{id}', [cashierController::class, 'hapusCart'])->middleware("auth");
+    Route::post('/cashier/transaksi', [cashierController::class, 'transaksiCart'])->name('buy')->middleware("auth");
+    Route::get('/history', [cashierController::class, 'history'])->middleware('auth');
+    Route::get('/history/detail/{id}', [cashierController::class, 'detail'])->middleware('auth');
+    Route::get('/history/detail/{id}/{invoiceId}/{nama}/{name}', [cashierController::class, 'detail'])->middleware('auth');
 });
 
-Route::group(['middleware' => 'admin'], function () {
+// Route::group(['middleware' => 'admin'], function () {
     Route::resource('/setting', settingController::class)->middleware('auth');
-});
+// });
 
 Route::middleware(['auth', 'role.admin-manager'])->group(function () {
     Route::resource('/product', productController::class)->middleware('auth');

@@ -38,9 +38,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             KategoriSeeder::class,
             ProdukSeeder::class,
-            CustomerSeeder::class,
-            TransaksiSeeder::class,
-            TransaksiDetailSeeder::class,
+            // CustomerSeeder::class,
+            // TransaksiSeeder::class,
+            // TransaksiDetailSeeder::class,
         ]);
     }
 }

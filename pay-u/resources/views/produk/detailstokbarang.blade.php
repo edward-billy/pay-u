@@ -12,16 +12,20 @@
     </head>
 
     <body>
+        <header>
+            <h1>Detail Produk</h1>
+        </header>
+        <br>
         <div class="card" id="addbarang" style="z-index: 1">
             <div class="card-header">
-                <div class="pull-left">
-                    <strong>Detail Data</strong>
-                </div>
-                <div class="pull-right">
-                    <a href="{{ url('product') }}" class="btn btn-default btn-sm">
-                        <i class="fa fa-plus"></i>Kembali
-                    </a>
-                </div>
+                <br>
+                <form action="{{ url('product') }}">
+                    <button class="btn btn-danger btn-sm">Back</button>
+                </form>
+                {{-- <a href="{{ url('product') }}" class="btn btn-default btn-sm" style="color: black">
+                    Kembali
+                </a> --}}
+
             </div>
 
             <div class="card-body table-responsive">
