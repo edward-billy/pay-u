@@ -17,13 +17,7 @@
             <h1>Inventory</h1>
         </header>
         <br>
-        {{-- @if (session()->has('status'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                {{ session('success') }}.
-                {{ session()->get('status') }}
-            </div>
-        @endif --}}
+
         <div class="card" style="width: 100rem; z-index: 1;">
             <div class="card-body">
                 <a href="{{ url('product/create') }}" class="button" id="addstok">Tambah Data</a>
@@ -75,12 +69,13 @@
                 </table>
             </div>
         </div>
-
-        <div class="card-body" id="pagination">
+        <div class="container d-flex justify-content-end" style="z-index: 1;">
             {{ $stok->links() }}
         </div>
-
     </body>
+
+
+    </html>
     <script>
         @if (session('success'))
             swal({
@@ -92,7 +87,4 @@
             });
         @endif
     </script>
-
-    </html>
-
 @endsection

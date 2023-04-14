@@ -17,12 +17,12 @@
         </header>
         <br>
         <div class="card" style="width: 100rem; z-index: 1;">
-        <div class="card-body">
-            <div class="text-end">
-                <a href="{{ url('/history/print') }}" class="btn btn-primary">
-                    <i class="bi bi-printer"></i> Download History
-                </a>
-            </div>
+            <div class="card-body">
+                <div class="text-end">
+                    <a href="{{ url('/history/print') }}" class="btn btn-primary">
+                        <i class="bi bi-printer"></i> Download History
+                    </a>
+                </div>
                 <br>
                 <table class="table">
                     <thead class="table-dark">
@@ -48,9 +48,10 @@
                                 </td>
                                 <td>Rp. {{ number_format($item->total) }}-,</td>
                                 <td class="text-center">
-                                <a href="{{ url('/history/detail/' . $item->id) }}?invoiceId={{ $item->invoiceId }}&nama={{ $item->nama }}&name={{ $item->name }}" class="btn btn-warning btn-sm" style="width: 55px;">
-                                    detail
-                                </a>
+                                    <a href="{{ url('/history/detail/' . $item->id) }}?invoiceId={{ $item->invoiceId }}&nama={{ $item->nama }}&name={{ $item->name }}"
+                                        class="btn btn-warning btn-sm" style="width: 55px;">
+                                        detail
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach
@@ -59,10 +60,21 @@
             </div>
         </div>
 
-        <div class="card-body" id="pagination">
+        <div class="container d-flex justify-content-end" style="z-index: 1;">
             {{ $data->links() }}
         </div>
     </body>
 
     </html>
+    <script>
+        @if (session('success'))
+            swal({
+                title: "Success!",
+                text: "{{ session('success') }}",
+                type: "success",
+                timer: 3000,
+                showConfirmButton: false
+            });
+        @endif
+    </script>
 @endsection

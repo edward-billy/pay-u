@@ -13,7 +13,7 @@ class productController extends Controller
      */
     public function index()
     {
-        $stok = produk::with('kategori')->simplePaginate(8);
+        $stok = produk::with('kategori')->paginate(8);
 
         return view('produk.stokbarang', compact('stok'));
     }
@@ -125,7 +125,7 @@ class productController extends Controller
                 'harga.integer' => 'Kolom harus berupa integer',
                 'harga.required' => 'Kolom ini wajib diisi',
                 'harga.min' => 'Kolom harus memiliki minimal 1 karakter',
-                'foto_produk.required' => 'Kolom ini wajib diisi',
+
             ]
         );
 

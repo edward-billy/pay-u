@@ -109,7 +109,7 @@ class cashierController extends Controller
         $data = DB::table('transaksis')->join('customers', 'transaksis.customerId', '=', 'customers.id')
             ->join('users', 'transaksis.userId', '=', 'users.id')
             ->select('transaksis.*', 'customers.nama as nama', 'users.name as name')
-            ->simplePaginate(8);
+            ->paginate(8);
 
         return view("history.history", compact('data'));
     }
@@ -137,7 +137,7 @@ class cashierController extends Controller
         // Set the headers for the CSV file
         $headers = array(
             "Content-type" => "text/csv",
-            "Content-Disposition" => "attachment; filename=".date("d-m-Y")."_history.csv",
+            "Content-Disposition" => "attachment; filename=" . date("d-m-Y") . "_history.csv",
             "Pragma" => "no-cache",
             "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
             "Expires" => "0"
@@ -160,5 +160,5 @@ class cashierController extends Controller
 
         // Return the response with headers and file contents
         return response(file_get_contents('php://output'), 200, $headers);
-    }       
+    }
 }
