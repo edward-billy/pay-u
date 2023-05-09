@@ -33,16 +33,6 @@ Route::get('/login', [loginController::class, 'index'])->name('login')->middlewa
 Route::post('/post-login', [loginController::class, 'postLogin'])->name('login.post');
 Route::get('/logout', [loginController::class, 'logout'])->name('logout');
 
-
-// Route::get('/stokbarang', [produkController::class, 'index'])->name('stokbarang')->middleware('auth');
-// Route::get('/stokbarang/addStok', [produkController::class, 'addData'])->middleware('auth');
-// Route::post('/stokbarang/insert', [produkController::class, 'insert'])->middleware('auth');
-// Route::get('/stokbarang/edit/{id}', [produkController::class, 'edit'])->middleware('auth');
-// Route::post('/stokbarang/editstok/{produk}', [produkController::class, 'editstok'])->middleware('auth');
-// Route::get('stokbarang/detail/{produk}', [produkController::class, 'detail'])->middleware('auth');
-// Route::get('stokbarang/delete/{produk}', [produkController::class, 'delete'])->middleware('auth');
-
-
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', [dashboardController::class, 'index'])->name('dashboard')->middleware('auth');
     Route::get('profile', [profileController::class, 'edit'])->name('profile.edit');
@@ -60,7 +50,7 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 // Route::group(['middleware' => 'admin'], function () {
-    Route::resource('/setting', settingController::class)->middleware('auth');
+Route::resource('/setting', settingController::class)->middleware('auth');
 // });
 
 Route::middleware(['auth', 'role.admin-manager'])->group(function () {

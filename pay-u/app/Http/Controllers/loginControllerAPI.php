@@ -1,21 +1,21 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class loginController extends Controller
+class AuthController extends Controller
 {
-    static function index()
+    public function index()
     {
-        return view('registlogin.login');
+        return response()->json([
+            'message' => 'Success',
+            'view' => view('registlogin.login')->render()
+        ]);
     }
+
     public function postLogin(Request $request)
     {
-
         $request->validate([
             'email' => 'required',
             'password' => 'required',
@@ -23,20 +23,25 @@ class loginController extends Controller
 
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('dashboard')
-                ->withSuccess('You have Successfully loggedin');
+            return response()->json([
+                'message' => 'You have successfully logged in',
+                'redirect' => '/dashboard',
+            ]);
         }
 
-        return redirect("/")->with('success', 'Oppes! You have entered invalid credentials');
-
+        return response()->json([
+            'message' => 'Invalid credentials',
+        ], 401);
     }
+
     public function logout(Request $request)
     {
-
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return Redirect('/');
+        return response()->json([
+            'message' => 'Logged out successfully',
+        ]);
     }
 }

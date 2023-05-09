@@ -6,16 +6,17 @@ use App\Models\kategori;
 use App\Models\produk;
 use Illuminate\Http\Request;
 
-class productController extends Controller
+class productControllerAPI extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    //
     public function index()
     {
         $stok = produk::with('kategori')->paginate(8);
 
-        return view('produk.stokbarang', compact('stok'));
+        return response()->json([
+            'message' => 'Success',
+            'stok' => $stok,
+        ]);
     }
 
     /**
@@ -23,14 +24,13 @@ class productController extends Controller
      */
     public function create()
     {
-        //
         $kategoris = kategori::all();
-        return view('produk.addStokbarang', compact('kategoris'));
+        return response()->json([
+            'message' => 'Success',
+            'kategoris' => $kategoris,
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         //
@@ -72,18 +72,20 @@ class productController extends Controller
 
         $produk->save();
 
-        session()->flash('success', 'Produk telah ditambahkan.');
-        return redirect("product");
+        $response = [
+            'message' => 'Product has been added.',
+        ];
+
+        return response()->json($response);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show($id)
     {
-        // $produk = produk::where('kategoriId');
         $produk = produk::find($id);
-        return view('produk.detailstokbarang', compact('produk'));
+        return response()->json([
+            'message' => 'Success',
+            'produk' => $produk,
+        ]);
     }
 
     /**
@@ -91,16 +93,16 @@ class productController extends Controller
      */
     public function edit($id)
     {
-        //
         $produk = produk::find($id);
         $kategoris = kategori::all();
 
-        return view('produk.editstokbarang', compact('produk', 'kategoris'));
+        return response()->json([
+            'message' => 'Success',
+            'produk' => $produk,
+            'kategoris' => $kategoris,
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, $id)
     {
         //
@@ -161,9 +163,6 @@ class productController extends Controller
         return redirect("product");
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $produk = produk::find($id);
@@ -172,7 +171,8 @@ class productController extends Controller
         }
         produk::destroy($id);
 
-        session()->flash('success', 'Produk telah berhasil dihapus.');
-        return redirect("product");
+        return response()->json([
+            'message' => 'Product has been deleted.',
+        ]);
     }
 }
