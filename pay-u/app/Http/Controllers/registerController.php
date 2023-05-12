@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 
 class registerController extends Controller
 {
-    //
+    
     static function index()
     {
         return view('registlogin.Register');
@@ -26,5 +26,4 @@ class registerController extends Controller
         User::create($validateData);
         return redirect('/')->with('success', 'Registrasi berhasil silahkan login kembali');
     }
-
 }

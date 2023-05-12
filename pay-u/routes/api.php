@@ -6,12 +6,14 @@ use App\Http\Controllers\productController;
 use App\Http\Controllers\productControllerAPI;
 use App\Http\Controllers\profileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\registerController;
-use App\Http\Controllers\loginController;
+// use App\Http\Controllers\registerController;
+// use App\Http\Controllers\loginController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\settingController;
 use App\Http\Controllers\cashierController;
-
+use App\Http\Controllers\loginControllerAPI;
+use App\Http\Controllers\registerControllerAPI;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,11 +30,21 @@ Route::get('/', function () {
     return view('registlogin.landing');
 });
 
-Route::get('/register', [registerController::class, 'index']);
-Route::post('/register', [registerController::class, 'register'])->name('register');
-Route::get('/login', [loginController::class, 'index'])->name('login')->middleware('guest');
-Route::post('/post-login', [loginController::class, 'postLogin'])->name('login.post');
-Route::get('/logout', [loginController::class, 'logout'])->name('logout');
+// Route::get('/register', [registerController::class, 'index']);
+// Route::post('/register', [registerController::class, 'register'])->name('register');
+// Route::get('/login', [loginController::class, 'index'])->name('login')->middleware('guest');
+// Route::post('/post-login', [loginController::class, 'postLogin'])->name('login.post');
+// Route::get('/logout', [loginController::class, 'logout'])->name('logout');
+
+// Route::group(['prefix' => 'v1'], function(){
+    // Route::post('login', 'UsersController@login');
+    // Route::post('register', 'UsersController@register');
+    // Route::get('logout', 'UsersController@logout')->middleware('auth:api');
+
+    Route::post('register', [registerControllerAPI::class, 'register']);
+    Route::post('login', [loginControllerAPI::class, 'login']);
+    Route::get('logout', [loginControllerAPI::class, 'logout'])->middleware('auth:api');
+// });
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', [dashboardController::class, 'index'])->name('dashboard')->middleware('auth');
