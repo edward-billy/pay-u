@@ -26,31 +26,32 @@ class loginControllerAPI extends Controller
             $user = Auth::user();
             $success['token'] = $user->createToken('appToken')->accessToken;
             return response()->json([
-             'success' => true,
-             'token' => $success,
-             'user' => $user,
+                'success' => true,
+                'token' => $success,
+                'user' => $user,
             ]);
-        } else{
+        } else {
             return response()->json([
-             'success' => false,
-             'message' => 'Invalid Email or Password',
+                'success' => false,
+                'message' => 'Invalid Email or Password',
             ], 401);
         }
     }
 
-    public function logout(Request $request){
-        if(Auth::user()){
-         $user = Auth::user()->token();
-         $user->revoke();
-      return response()->json([
-          'success' => true,
-          'message' => 'Logout successfully',
-         ]);
-        } else{
-         return response()->json([
-          'success' => false,
-          'message' => 'Unable to Logout',
-         ]);
+    public function logout(Request $request)
+    {
+        if (Auth::user()) {
+            $user = Auth::user()->token();
+            $user->revoke();
+            return response()->json([
+                'success' => true,
+                'message' => 'Logout successfully',
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Unable to Logout',
+            ]);
         }
-       }
+    }
 }
