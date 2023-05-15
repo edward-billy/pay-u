@@ -3,7 +3,7 @@
 use App\Http\Controllers\cartController;
 use App\Http\Controllers\kasirController;
 use App\Http\Controllers\productController;
-use App\Http\Controllers\productControllerAPI;
+use App\Http\Controllers\ControllerAPI\productControllerAPI;
 use App\Http\Controllers\profileController;
 use Illuminate\Support\Facades\Route;
 // use App\Http\Controllers\registerController;
@@ -11,8 +11,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\settingController;
 use App\Http\Controllers\cashierController;
-use App\Http\Controllers\loginControllerAPI;
-use App\Http\Controllers\registerControllerAPI;
+use App\Http\Controllers\ControllerAPI\loginControllerAPI;
+use App\Http\Controllers\ControllerAPI\registerControllerAPI;
 use Illuminate\Http\Request;
 
 /*
@@ -37,13 +37,13 @@ Route::get('/', function () {
 // Route::get('/logout', [loginController::class, 'logout'])->name('logout');
 
 // Route::group(['prefix' => 'v1'], function(){
-    // Route::post('login', 'UsersController@login');
-    // Route::post('register', 'UsersController@register');
-    // Route::get('logout', 'UsersController@logout')->middleware('auth:api');
+// Route::post('login', 'UsersController@login');
+// Route::post('register', 'UsersController@register');
+// Route::get('logout', 'UsersController@logout')->middleware('auth:api');
 
-    Route::post('register', [registerControllerAPI::class, 'register']);
-    Route::post('login', [loginControllerAPI::class, 'login']);
-    Route::get('logout', [loginControllerAPI::class, 'logout'])->middleware('auth:api');
+Route::post('register', [registerControllerAPI::class, 'register']);
+Route::post('login', [loginControllerAPI::class, 'login']);
+Route::get('logout', [loginControllerAPI::class, 'logout'])->middleware('auth:api');
 // });
 
 Route::group(['middleware' => 'auth'], function () {

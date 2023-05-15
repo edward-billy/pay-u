@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ControllerAPI;
 
+use App\Http\Controllers\Controller;
 use App\Models\kategori;
 use App\Models\produk;
 use Exception;
