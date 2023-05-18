@@ -5,6 +5,8 @@ use App\Http\Controllers\kasirController;
 use App\Http\Controllers\productController;
 use App\Http\Controllers\ControllerAPI\productControllerAPI;
 use App\Http\Controllers\profileController;
+use App\Http\Controllers\ControllerAPI\dashboardControllerAPI;
+
 use Illuminate\Support\Facades\Route;
 // use App\Http\Controllers\registerController;
 // use App\Http\Controllers\loginController;
@@ -46,13 +48,14 @@ Route::post('register', [registerControllerAPI::class, 'register']);
 Route::post('login', [loginControllerAPI::class, 'login']);
 Route::group(['middleware' => 'auth:api'], function () {
 
-Route::get('logout', [loginControllerAPI::class, 'logout']);
-Route::get('history', [cashierControllerAPI::class, 'history']);
-Route::get('history/{id}', [cashierControllerAPI::class, 'detail']);
+    Route::get('logout', [loginControllerAPI::class, 'logout']);
+    Route::get('history', [cashierControllerAPI::class, 'history']);
+    Route::get('history/{id}', [cashierControllerAPI::class, 'detail']);
+    Route::get('/dashboard', [dashboardControllerAPI::class, 'index'])->name('dashboard');
+
 });
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/dashboard', [dashboardController::class, 'index'])->name('dashboard')->middleware('auth');
     Route::get('profile', [profileController::class, 'edit'])->name('profile.edit');
     Route::patch('profile', [profileController::class, 'update'])->name('profile.update');
     Route::get('/cashier', [cashierController::class, 'index'])->middleware('auth');
@@ -61,7 +64,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/cashier/cart', [cashierController::class, 'cart'])->middleware("auth");
     Route::get('/cashier/hapus/{id}', [cashierController::class, 'hapusCart'])->middleware("auth");
     Route::post('/cashier/transaksi', [cashierController::class, 'transaksiCart'])->name('buy')->middleware("auth");
-    
+
     Route::get('/history/detail/{id}', [cashierController::class, 'detail'])->middleware('auth');
     Route::get('/history/detail/{id}/{invoiceId}/{nama}/{name}', [cashierController::class, 'detail'])->middleware('auth');
     Route::get('/history/print', [cashierController::class, 'generateCsv'])->middleware('auth');
