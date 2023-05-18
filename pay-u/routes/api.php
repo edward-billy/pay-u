@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Route;
 // use App\Http\Controllers\loginController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\settingController;
-use App\Http\Controllers\cashierController;
+// use App\Http\Controllers\cashierController;
+use App\Http\Controllers\ControllerAPI\cashierControllerAPI;
 use App\Http\Controllers\ControllerAPI\loginControllerAPI;
 use App\Http\Controllers\ControllerAPI\registerControllerAPI;
 use Illuminate\Http\Request;
@@ -43,8 +44,12 @@ Route::get('/', function () {
 
 Route::post('register', [registerControllerAPI::class, 'register']);
 Route::post('login', [loginControllerAPI::class, 'login']);
-Route::get('logout', [loginControllerAPI::class, 'logout'])->middleware('auth:api');
-// });
+Route::group(['middleware' => 'auth:api'], function () {
+
+Route::get('logout', [loginControllerAPI::class, 'logout']);
+Route::get('history', [cashierControllerAPI::class, 'history']);
+Route::get('history/{id}', [cashierControllerAPI::class, 'detail']);
+});
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', [dashboardController::class, 'index'])->name('dashboard')->middleware('auth');
@@ -56,7 +61,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/cashier/cart', [cashierController::class, 'cart'])->middleware("auth");
     Route::get('/cashier/hapus/{id}', [cashierController::class, 'hapusCart'])->middleware("auth");
     Route::post('/cashier/transaksi', [cashierController::class, 'transaksiCart'])->name('buy')->middleware("auth");
-    Route::get('/history', [cashierController::class, 'history'])->middleware('auth');
+    
     Route::get('/history/detail/{id}', [cashierController::class, 'detail'])->middleware('auth');
     Route::get('/history/detail/{id}/{invoiceId}/{nama}/{name}', [cashierController::class, 'detail'])->middleware('auth');
     Route::get('/history/print', [cashierController::class, 'generateCsv'])->middleware('auth');
