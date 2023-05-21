@@ -70,7 +70,7 @@ class cashierController extends Controller
             "alamat" => "nullable|string|min:10",
             "noHp" => "nullable|string|min:8"
         ]);
-
+        $totalBill = 0;
         foreach ($cart as $item => $val) {
             $produk = produk::find($item);
             if ($produk) {
@@ -79,7 +79,7 @@ class cashierController extends Controller
 
             }
             $total = $val['harga'] * $val['jumlah'];
-            $totalBill = 0;
+            // $totalBill = 0;
             $totalBill += $total;
             $id = $item;
 
@@ -90,7 +90,7 @@ class cashierController extends Controller
             customer::create($customerData);
         }
         $custID = customer::where('email', $request->email)->pluck('id')->first();
-
+        // dd($totalBill);
         $transID = transaksi::addTransaksi($totalBill, $custID);
 
         foreach ($cart as $item => $val) {
