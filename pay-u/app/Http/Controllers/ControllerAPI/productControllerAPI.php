@@ -15,11 +15,11 @@ class productControllerAPI extends Controller
     //
     public function index()
     {
-        $stok = produk::with('kategori')->paginate(8);
+        $data = produk::with('kategori')->paginate(8);
 
         return response()->json([
             'message' => 'Success',
-            'stok' => $stok,
+            'data' => $data,
         ]);
     }
 

@@ -6,9 +6,6 @@ use App\Models\customer;
 use App\Models\produk;
 use App\Models\transaksi;
 use App\Models\transaksiDetail;
-use Cart;
-use League\Csv\Writer;
-use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 

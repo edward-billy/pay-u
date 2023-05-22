@@ -1,22 +1,15 @@
 <?php
 
-use App\Http\Controllers\cartController;
-use App\Http\Controllers\kasirController;
-use App\Http\Controllers\productController;
 use App\Http\Controllers\ControllerAPI\productControllerAPI;
-use App\Http\Controllers\profileController;
 use App\Http\Controllers\ControllerAPI\dashboardControllerAPI;
-
+use App\Http\Controllers\ControllerAPI\profileControllerAPI;
 use Illuminate\Support\Facades\Route;
-// use App\Http\Controllers\registerController;
-// use App\Http\Controllers\loginController;
-use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\settingController;
-// use App\Http\Controllers\cashierController;
 use App\Http\Controllers\ControllerAPI\cashierControllerAPI;
 use App\Http\Controllers\ControllerAPI\loginControllerAPI;
 use App\Http\Controllers\ControllerAPI\registerControllerAPI;
-use Illuminate\Http\Request;
+use App\Http\Controllers\ControllerAPI\cashierController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -52,22 +45,22 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('history', [cashierControllerAPI::class, 'history']);
     Route::get('history/{id}', [cashierControllerAPI::class, 'detail']);
     Route::get('/dashboard', [dashboardControllerAPI::class, 'index'])->name('dashboard');
+    Route::resource('/product', productControllerAPI::class);
+    Route::get('profile', [profileControllerAPI::class, 'edit'])->name('profile.edit');
+    Route::post('profile', [profileControllerAPI::class, 'update'])->name('profile.update');
 
 });
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('profile', [profileController::class, 'edit'])->name('profile.edit');
-    Route::patch('profile', [profileController::class, 'update'])->name('profile.update');
-    Route::get('/cashier', [cashierController::class, 'index'])->middleware('auth');
-    Route::get('/cashier/kategori/', [cashierController::class, 'kategoriCart'])->middleware('auth');
-    Route::get('/cashier/tambah/{id}', [cashierController::class, 'tambahCart'])->middleware('auth');
-    Route::get('/cashier/cart', [cashierController::class, 'cart'])->middleware("auth");
-    Route::get('/cashier/hapus/{id}', [cashierController::class, 'hapusCart'])->middleware("auth");
-    Route::post('/cashier/transaksi', [cashierController::class, 'transaksiCart'])->name('buy')->middleware("auth");
-
-    Route::get('/history/detail/{id}', [cashierController::class, 'detail'])->middleware('auth');
-    Route::get('/history/detail/{id}/{invoiceId}/{nama}/{name}', [cashierController::class, 'detail'])->middleware('auth');
-    Route::get('/history/print', [cashierController::class, 'generateCsv'])->middleware('auth');
+    Route::get('/cashier', [cashierControllerAPI::class, 'index'])->middleware('auth');
+    Route::get('/cashier/kategori/', [cashierControllerAPI::class, 'kategoriCart'])->middleware('auth');
+    Route::get('/cashier/tambah/{id}', [cashierControllerAPI::class, 'tambahCart'])->middleware('auth');
+    Route::get('/cashier/cart', [cashierControllerAPI::class, 'cart'])->middleware("auth");
+    Route::get('/cashier/hapus/{id}', [cashierControllerAPI::class, 'hapusCart'])->middleware("auth");
+    Route::post('/cashier/transaksi', [cashierControllerAPI::class, 'transaksiCart'])->name('buy')->middleware("auth");
+    Route::get('/history/detail/{id}', [cashierControllerAPI::class, 'detail'])->middleware('auth');
+    Route::get('/history/detail/{id}/{invoiceId}/{nama}/{name}', [cashierControllerAPI::class, 'detail'])->middleware('auth');
+    Route::get('/history/print', [cashierControllerAPI::class, 'generateCsv'])->middleware('auth');
 });
 
 // Route::group(['middleware' => 'admin'], function () {
@@ -77,4 +70,3 @@ Route::resource('/setting', settingController::class)->middleware('auth');
 // Route::middleware(['auth', 'role.admin-manager'])->group(function () {
 //     Route::resource('/product', productControllerAPI::class)->middleware('auth');
 // });
-Route::resource('/product', productControllerAPI::class);
