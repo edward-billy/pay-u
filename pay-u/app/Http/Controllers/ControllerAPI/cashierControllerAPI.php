@@ -80,7 +80,7 @@ class cashierControllerAPI extends Controller
             }
             $total = $val['harga'] * $val['jumlah'];
             $totalBill = 0;
-            $totalBill += $total;
+            $totalBill =+ $total;
             $id = $item;
 
         }
