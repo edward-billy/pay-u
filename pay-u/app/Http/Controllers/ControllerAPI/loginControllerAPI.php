@@ -4,6 +4,7 @@ namespace App\Http\Controllers\ControllerAPI;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class loginControllerAPI extends Controller
 {
@@ -26,10 +27,12 @@ class loginControllerAPI extends Controller
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
             $success['token'] = $user->createToken('appToken')->accessToken;
+
             return response()->json([
                 'success' => true,
                 'token' => $success,
                 'user' => $user,
+
             ]);
         } else {
             return response()->json([

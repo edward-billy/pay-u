@@ -84,7 +84,7 @@ class productControllerAPI extends Controller
         $produk = produk::find($id);
         return response()->json([
             'message' => 'Success',
-            'produk' => $produk,
+            'data' => $produk,
         ]);
     }
 

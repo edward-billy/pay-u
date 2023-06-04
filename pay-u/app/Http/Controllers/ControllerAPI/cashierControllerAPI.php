@@ -12,6 +12,8 @@ use League\Csv\Writer;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Cookie;
 
 class cashierControllerAPI extends Controller
 {
@@ -21,49 +23,73 @@ class cashierControllerAPI extends Controller
         return response()->json(['message' => 'Welcome to the cashier index page']);
     }
 
-    public function kategoriCart(Request $request)
+    public function kategoriCart($id)
     {
-        $category = $request->query('category');
+        $category = $id;
         $stok = produk::with('kategori')->where('kategoriId', $category)->get();
 
-        return response()->json(['stok' => $stok]);
+        return response()->json(
+            [
+                'data' => $stok,
+                'success' => true
+            ],
+            200
+        );
     }
 
     public function tambahCart(Request $request, $id)
     {
-        $cart = session('cart');
-        $jumlah = $request->input('jumlah');
+        $jumlah = $request->jumlah;
         $produk = produk::find($id);
-        $cart[$id] = [
+        $existingCart = json_decode(Cookie::get('cart'), true) ?? [];
+        $existingCart[$id] = [
             "nama" => $produk->nama,
             "harga" => $produk->harga,
-            "jumlah" => $jumlah
+            "jumlah" => $jumlah,
         ];
+        $cookieCart = Cookie::make('cart', json_encode($existingCart), 1440);
 
-        session(["cart" => $cart]);
-        return response()->json(['message' => 'Item added to cart successfully']);
+        // session(["cart" => $cart]);
+        // $var = session('cart');
+        return response()->json(['message' => 'Item added to cart successfully', 'data' => $cookieCart->getValue()])
+            ->cookie($cookieCart);
     }
 
     public function cart()
     {
-        $cart = session("cart");
 
+        $cart = Session::get('nama');
+        $cookieCart = Cookie::get('cart');
+        $cart = json_decode($cookieCart, true);
+
+        // Lakukan sesuatu dengan data cart
+        // Misalnya, tampilkan data cart
         return response()->json(['cart' => $cart]);
+
     }
 
     public function hapusCart($id)
     {
-        $cart = session("cart");
-        unset($cart[$id]);
+        $existingCart = json_decode(Cookie::get('cart'), true) ?? [];
 
-        session(["cart" => $cart]);
+        unset($existingCart[$id]);
+        $cookieCart = Cookie::make('cart', json_encode($existingCart), 1440);
 
-        return response()->json(['message' => 'Item removed from cart successfully']);
+        return response()->json(['message' => 'Item removed from cart successfully'])
+            ->cookie($cookieCart);
+        // $cart = session("cart");
+        // unset($cart[$id]);
+
+        // session(["cart" => $cart]);
+
+        // return response()->json(['message' => 'Item removed from cart successfully']);
     }
 
     public function transaksiCart(Request $request)
     {
-        $cart = session("cart");
+        $cookieCart = Cookie::get('cart');
+        $cart = json_decode($cookieCart, true) ?? [];
+
         $customerData = $request->validate([
             "email" => "nullable|email",
             "nama" => "required|min:4|max:255",
@@ -76,19 +102,19 @@ class cashierControllerAPI extends Controller
             if ($produk) {
                 $produk->stok -= $val['jumlah'];
                 $produk->save();
-
             }
             $total = $val['harga'] * $val['jumlah'];
             $totalBill = 0;
-            $totalBill =+ $total;
+            $totalBill += $total;
             $id = $item;
-
         }
+
         $customer = customer::where('email', $request->email)->first();
 
         if (!$customer) {
             customer::create($customerData);
         }
+
         $custID = customer::where('email', $request->email)->pluck('id')->first();
 
         $transID = transaksi::addTransaksi($totalBill, $custID);
@@ -99,8 +125,50 @@ class cashierControllerAPI extends Controller
             transaksiDetail::addTransaksiDetail($transID, $item, $jumlah, $harga);
         }
 
-        session()->forget("cart");
-        return response()->json(['message' => 'Transaction successful']);
+        $response = response()->json(['message' => 'Transaction successful']);
+
+        // Hapus cookie 'cart'
+        $response->cookie(Cookie::forget('cart'));
+
+        return $response;
+        // $cart = session("cart");
+        // $customerData = $request->validate([
+        //     "email" => "nullable|email",
+        //     "nama" => "required|min:4|max:255",
+        //     "alamat" => "nullable|string|min:10",
+        //     "noHp" => "nullable|string|min:8"
+        // ]);
+
+        // foreach ($cart as $item => $val) {
+        //     $produk = produk::find($item);
+        //     if ($produk) {
+        //         $produk->stok -= $val['jumlah'];
+        //         $produk->save();
+
+        //     }
+        //     $total = $val['harga'] * $val['jumlah'];
+        //     $totalBill = 0;
+        //     $totalBill = +$total;
+        //     $id = $item;
+
+        // }
+        // $customer = customer::where('email', $request->email)->first();
+
+        // if (!$customer) {
+        //     customer::create($customerData);
+        // }
+        // $custID = customer::where('email', $request->email)->pluck('id')->first();
+
+        // $transID = transaksi::addTransaksi($totalBill, $custID);
+
+        // foreach ($cart as $item => $val) {
+        //     $jumlah = $val["jumlah"];
+        //     $harga = $val["harga"];
+        //     transaksiDetail::addTransaksiDetail($transID, $item, $jumlah, $harga);
+        // }
+
+        // session()->forget("cart");
+        // return response()->json(['message' => 'Transaction successful']);
     }
 
     public function history()

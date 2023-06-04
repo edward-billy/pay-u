@@ -95,7 +95,7 @@ class cashierController extends Controller
             $harga = $val["harga"];
             transaksiDetail::addTransaksiDetail($transID, $item, $jumlah, $harga);
         }
-
+        // dd($cart);
         session()->forget("cart");
         return redirect()->back()->with('success', 'Transaksi Berhasil');
 
