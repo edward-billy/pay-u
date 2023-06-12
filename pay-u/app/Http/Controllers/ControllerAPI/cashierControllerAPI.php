@@ -46,9 +46,11 @@ class cashierControllerAPI extends Controller
             "nama" => $produk->nama,
             "harga" => $produk->harga,
             "jumlah" => $jumlah,
+            "iduser" => auth()->user()->id
         ];
         $cookieCart = Cookie::make('cart', json_encode($existingCart), 1440);
-
+        // $output = new \Symfony\Component\Console\Output\ConsoleOutput();
+        // $output->writeln("hello goodbye");
         // session(["cart" => $cart]);
         // $var = session('cart');
         return response()->json(['message' => 'Item added to cart successfully', 'data' => $cookieCart->getValue()])
@@ -58,13 +60,14 @@ class cashierControllerAPI extends Controller
     public function cart()
     {
 
-        $cart = Session::get('nama');
+        // $cart = Session::get('nama');
         $cookieCart = Cookie::get('cart');
         $cart = json_decode($cookieCart, true);
 
+        print_r($cart);
         // Lakukan sesuatu dengan data cart
         // Misalnya, tampilkan data cart
-        return response()->json(['cart' => $cart]);
+        return response()->json(['data' => $cart]);
 
     }
 
@@ -77,12 +80,6 @@ class cashierControllerAPI extends Controller
 
         return response()->json(['message' => 'Item removed from cart successfully'])
             ->cookie($cookieCart);
-        // $cart = session("cart");
-        // unset($cart[$id]);
-
-        // session(["cart" => $cart]);
-
-        // return response()->json(['message' => 'Item removed from cart successfully']);
     }
 
     public function transaksiCart(Request $request)

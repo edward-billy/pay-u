@@ -40,7 +40,6 @@ Route::get('/', function () {
 Route::post('register', [registerControllerAPI::class, 'register']);
 Route::post('login', [loginControllerAPI::class, 'login']);
 Route::group(['middleware' => 'auth:api'], function () {
-
     Route::get('logout', [loginControllerAPI::class, 'logout']);
     Route::get('history', [cashierControllerAPI::class, 'history']);
     Route::get('history/{id}', [cashierControllerAPI::class, 'detail']);
@@ -54,7 +53,6 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/cashier/cart', [cashierControllerAPI::class, 'cart']);
     Route::get('/cashier/hapus/{id}', [cashierControllerAPI::class, 'hapusCart']);
     Route::post('/cashier/transaksi', [cashierControllerAPI::class, 'transaksiCart'])->name('buy');
-
 });
 
 Route::group(['middleware' => 'auth'], function () {

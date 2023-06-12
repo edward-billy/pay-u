@@ -4,7 +4,7 @@ namespace App\Http\Controllers\ControllerAPI;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Response;
 
 class loginControllerAPI extends Controller
 {
@@ -47,10 +47,15 @@ class loginControllerAPI extends Controller
         if (Auth::user()) {
             $user = Auth::user()->token();
             $user->revoke();
+            $cookie = cookie('cart', null, -1); // Ganti 'cookie_name' dengan nama cookie yang ingin dihapus
+            $cookieCart = \Illuminate\Support\Facades\Cookie::get('cart');
+            $cart = json_decode($cookieCart, true);
+
             return response()->json([
                 'success' => true,
                 'message' => 'Logout successfully',
-            ]);
+                'data' => $cart
+            ])->withCookie($cookie);
         } else {
             return response()->json([
                 'success' => false,
