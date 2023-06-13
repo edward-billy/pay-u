@@ -82,56 +82,56 @@ class cashierControllerAPI extends Controller
             ->cookie($cookieCart);
     }
 
+
     public function transaksiCart(Request $request)
     {
-        // $cookieCart = Cookie::get('cart');
-
         $cart = json_decode($request->input('cart'), true);
-        // dd($cart);
         $customerData = $request->validate([
             "email" => "required|email",
             "nama" => "required|min:4|max:255",
             "alamat" => "nullable|string|min:10",
             "noHp" => "nullable|string|min:8"
         ]);
+
         $totalBill = 0;
-        if($cart !=null){
-            foreach ($cart as $item => $val) {
-                $produk = produk::find($item);
+
+        if ($cart != null) {
+            foreach ($cart as $item) {
+                $produk = Produk::find($item['id']);
+
                 if ($produk) {
-                    $produk->stok -= $val['jumlah'];
+                    $produk->stok -= $item['jumlah'];
                     $produk->save();
                 }
-                $total = $val['harga'] * $val['jumlah'];
+
+                $total = $item['harga'] * $item['jumlah'];
                 $totalBill += $total;
-                $id = $item;
             }
         }
 
-        $customer = customer::where('email', $request->email)->first();
+        $customer = Customer::where('email', $request->email)->first();
 
         if (!$customer) {
-            customer::create($customerData);
+            $customer = Customer::create($customerData);
         }
 
-        $custID = customer::where('email', $request->email)->pluck('id')->first();
+        $custID = $customer->id;
 
-        $transID = transaksi::addTransaksi($totalBill, $custID);
-        if($cart !=null){
-            foreach ($cart as $item => $val) {
-                $jumlah = $val["jumlah"];
-                $harga = $val["harga"];
-                transaksiDetail::addTransaksiDetail($transID, $item, $jumlah, $harga);
+        $transID = Transaksi::addTransaksi($totalBill, $custID);
+
+        if ($cart != null) {
+            foreach ($cart as $item) {
+                $jumlah = $item["jumlah"];
+                $harga = $item["harga"];
+                TransaksiDetail::addTransaksiDetail($transID, $item['id'], $jumlah, $harga);
             }
         }
+
         $response = response()->json(['message' => 'Transaction successful', 'cart' => $cart]);
 
-        // Hapus cookie 'cart'
-        // $response->cookie(Cookie::forget('cart'));
-
         return $response;
-
     }
+
 
     public function history()
     {
