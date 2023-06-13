@@ -128,44 +128,7 @@ class cashierControllerAPI extends Controller
         $response->cookie(Cookie::forget('cart'));
 
         return $response;
-        // $cart = session("cart");
-        // $customerData = $request->validate([
-        //     "email" => "nullable|email",
-        //     "nama" => "required|min:4|max:255",
-        //     "alamat" => "nullable|string|min:10",
-        //     "noHp" => "nullable|string|min:8"
-        // ]);
 
-        // foreach ($cart as $item => $val) {
-        //     $produk = produk::find($item);
-        //     if ($produk) {
-        //         $produk->stok -= $val['jumlah'];
-        //         $produk->save();
-
-        //     }
-        //     $total = $val['harga'] * $val['jumlah'];
-        //     $totalBill = 0;
-        //     $totalBill = +$total;
-        //     $id = $item;
-
-        // }
-        // $customer = customer::where('email', $request->email)->first();
-
-        // if (!$customer) {
-        //     customer::create($customerData);
-        // }
-        // $custID = customer::where('email', $request->email)->pluck('id')->first();
-
-        // $transID = transaksi::addTransaksi($totalBill, $custID);
-
-        // foreach ($cart as $item => $val) {
-        //     $jumlah = $val["jumlah"];
-        //     $harga = $val["harga"];
-        //     transaksiDetail::addTransaksiDetail($transID, $item, $jumlah, $harga);
-        // }
-
-        // session()->forget("cart");
-        // return response()->json(['message' => 'Transaction successful']);
     }
 
     public function history()
